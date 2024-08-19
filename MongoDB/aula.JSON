@@ -1,0 +1,65 @@
+[
+	{
+		"_id": 1,
+		"assunto": "Programação Orientada a Objetos",
+		"professor": {
+			"nome": "Lucas"
+		},
+		"alunos": [
+			{
+				"nome": "Maria"
+			},
+			{
+				"nome": "Pedro"
+			},
+			{
+				"nome": "Joao"
+			},
+			{
+				"nome": "Jose"
+			}
+		]
+	},
+	{
+		"_id": 2,
+		"assunto": "Programação Orientada a Objetos",
+		"professor": {
+			"nome": "Lucas"
+		},
+		"alunos": [
+			{
+				"nome": "Maria"
+			},
+			{
+				"nome": "Pedro"
+			},
+			{
+				"nome": "Joao"
+			},
+			{
+				"nome": "Jose"
+			}
+		]
+	},
+	{
+		"_id": 3,
+		"assunto": "Programação Orientada a Objetos",
+		"professor": {
+			"nome": "Lucas"
+		},
+		"alunos": [
+			{
+				"nome": "Maria"
+			},
+			{
+				"nome": "Pedro"
+			},
+			{
+				"nome": "Joao"
+			},
+			{
+				"nome": "Jose"
+			}
+		]
+	}
+]
