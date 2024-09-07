@@ -1,0 +1,46 @@
+/*
+	1) a)
+   Diagrama de Estados do Semáforo:
+
+   Estado Verde (12 segundos)
+       |
+       v
+   Estado Amarelo (3 segundos)
+       |
+       v
+   Estado Vermelho (15 segundos)
+       |
+       v
+   Volta para o Estado Verde
+*/
+
+// 1) b)
+#define VERDE 2
+#define AMARELO 3
+#define VERMELHO 4
+
+void setup() {
+    // Define os pinos como saída
+    pinMode(VERDE, OUTPUT);
+    pinMode(AMARELO, OUTPUT);
+    pinMode(VERMELHO, OUTPUT);
+}
+
+void loop() {
+    // Estado Verde
+    digitalWrite(VERDE, HIGH);   // Liga o LED Verde
+    digitalWrite(AMARELO, LOW);  // Desliga o LED Amarelo
+    digitalWrite(VERMELHO, LOW); // Desliga o LED Vermelho
+    delay_ms(12000);             // Espera 12 segundos
+
+    // Estado Amarelo
+    digitalWrite(VERDE, LOW);    // Desliga o LED Verde
+    digitalWrite(AMARELO, HIGH); // Liga o LED Amarelo
+    delay_ms(3000);              // Espera 3 segundos
+
+    // Estado Vermelho
+    digitalWrite(VERDE, LOW);    // Desliga o LED Verde
+    digitalWrite(AMARELO, LOW);  // Desliga o LED Amarelo
+    digitalWrite(VERMELHO, HIGH);// Liga o LED Vermelho
+    delay_ms(15000);             // Espera 15 segundos
+}

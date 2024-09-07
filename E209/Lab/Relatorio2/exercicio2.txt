@@ -1,0 +1,13 @@
+Estado 0 (LEDs OFF)
+    |
+    v
+Estado 1 (LED R ON)
+    |
+    v
+Estado 2 (LED G ON)
+    |
+    v
+Estado 3 (LEDs ON)
+    |
+    v
+Estado 0 (LEDs OFF)

@@ -1,0 +1,13 @@
+Estado 0 (Desligada)
+    |
+    v
+Estado 1 (Aguardando Seleção)
+    |
+    v
+Estado 2 (Preparando Café)
+    |
+    v
+Estado 3 (Café Pronto)
+    |
+    v
+Estado 1 (Aguardando Seleção)
