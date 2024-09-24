@@ -1,0 +1,59 @@
+{
+  $jsonSchema: {
+    bsonType: 'object',
+    required: [
+      'nota_motorista',
+      'corridas'
+    ],
+    properties: {
+      nota_motorista: {
+        bsonType: 'int',
+        description: 'Nota do motorista. Deve ser um inteiro.'
+      },
+      corridas: {
+        bsonType: 'array',
+        description: 'Lista de corridas.',
+        items: {
+          bsonType: 'object',
+          required: [
+            'nota',
+            'distancia',
+            'valor',
+            'passageiro'
+          ],
+          properties: {
+            nota: {
+              bsonType: 'int',
+              description: 'Nota da corrida. Deve ser um inteiro.'
+            },
+            distancia: {
+              bsonType: 'double',
+              description: 'Distância da corrida. Deve ser um número de ponto flutuante.'
+            },
+            valor: {
+              bsonType: 'double',
+              description: 'Valor da corrida. Deve ser um inteiro.'
+            },
+            passageiro: {
+              bsonType: 'object',
+              required: [
+                'nome',
+                'documento'
+              ],
+              properties: {
+                nome: {
+                  bsonType: 'string',
+                  description: 'Nome do passageiro. Deve ser uma string.'
+                },
+                documento: {
+                  bsonType: 'string',
+                  description: 'Documento do passageiro. Deve ser uma string.'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
