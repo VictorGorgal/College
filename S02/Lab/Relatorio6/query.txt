@@ -1,0 +1,38 @@
+1.1)
+MATCH (n) RETURN n;
+
+1.2)
+MATCH (g:Game)
+WHERE g.ano > 2012
+RETURN g;
+
+1.3)
+MATCH (g:Game{genero: 'Terror'})
+RETURN g;
+
+1.4)
+MATCH (j:Jurado)-[r:JOGOU]->(g:Game)
+WHERE r.nota >= 7
+RETURN g, r.nota;
+
+
+2.1)
+CREATE (g:Game{titulo:'Valorant', genero:'Shooter', ano:2020});
+CREATE (g:Game{titulo:'Fortnite', genero:'Battle Royale', ano:2017});
+CREATE (g:Game{titulo:'Among Us', genero:'Party', ano:2018});
+CREATE (g:Game{titulo:'Cyberpunk 2077', genero:'RPG', ano:2020});
+
+2.2)
+CREATE (j:Jurado{nome:'Lucas'});
+CREATE (j:Jurado{nome:'Ana'});
+CREATE (j:Jurado{nome:'Carla'});
+
+2.3)
+MATCH (j:Jurado{nome:'Lucas'}), (g:Game{titulo:'Valorant'})
+CREATE (j)-[:JOGOU{nota:9, horas:300}]->(g);
+
+MATCH (j:Jurado{nome:'Ana'}), (g:Game{titulo:'Among Us'})
+CREATE (j)-[:JOGOU{nota:8, horas:100}]->(g);
+
+MATCH (j:Jurado{nome:'Carla'}), (g:Game{titulo:'Cyberpunk 2077'})
+CREATE (j)-[:JOGOU{nota:7, horas:200}]->(g);
