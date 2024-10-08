@@ -1,25 +1,25 @@
 class Carro
 	def descrever
-	  "Eu sou um carro normal."
+	  "Carro normal"
 	end
   end
   
   class CarroEsportivo < Carro
 	def descrever
-	  "Eu sou um carro esportivo, sou rapido."
+	  "Carro esportivo"
 	end
   end
   class CarroSedan < Carro
 	def descrever
-	  "Sou um carro sedan, grande e espaçoso."
+	  "Carro sedan"
 	end
   end
   
-  carro_generico = Carro.new
-  carro_esportivo = CarroEsportivo.new
-  carro_sedan = CarroSedan.new
+  carro = Carro.new
+  carroEsportivo = CarroEsportivo.new
+  carroSedan = CarroSedan.new
   
-  puts carro_generico.descrever
-  puts carro_esportivo.descrever
-  puts carro_sedan.descrever
+  puts carro.descrever
+  puts carroEsportivo.descrever
+  puts carroSedan.descrever
   
