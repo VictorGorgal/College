@@ -1,1 +1,54 @@
-.
+### Agregação ###
+
+MATCH (p:Person)
+RETURN count(p) AS total_persons;
+
+MATCH (p:Person)
+RETURN sum(p.age) AS total_age;
+
+MATCH (p:Person)
+RETURN avg(p.age) AS average_age;
+
+MATCH (p:Person)
+RETURN max(p.age) AS oldest_person_age;
+
+MATCH (p:Person)
+RETURN p.city, count(p) AS persons_per_city
+ORDER BY persons_per_city DESC;
+
+
+### Funções Matemáticas ###
+
+MATCH (p:Person)
+RETURN sqrt(sum(p.age)) AS sqrt_of_total_age;
+
+MATCH (p:Person)
+RETURN abs(max(p.age) - min(p.age)) AS age_difference;
+
+MATCH (p:Person)
+RETURN round(avg(p.age)) AS rounded_average_age;
+
+MATCH (p:Person)
+RETURN pow(avg(p.age), 2) AS squared_average_age;
+
+MATCH (p:Person {name: 'Alice'})
+RETURN sin(p.age) AS age_sine;
+
+
+### Funções de String ###
+
+MATCH (p:Person {name: 'Alice'})
+RETURN toUpper(p.name) AS name_uppercase;
+
+MATCH (p:Person {name: 'Alice'})
+RETURN p.name + ' de ' + p.city AS name_with_city;
+
+MATCH (p:Person {name: 'Alice'})
+RETURN substring(p.name, 0, 3) AS name_prefix;
+
+MATCH (p:Person)
+WHERE p.name STARTS WITH 'A'
+RETURN p.name AS name_starting_with_A;
+
+MATCH (p:Person {name: ' Alice '})
+RETURN trim(p.name) AS trimmed_name;
