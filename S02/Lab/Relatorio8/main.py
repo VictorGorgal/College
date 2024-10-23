@@ -2,7 +2,7 @@ from database import Database
 from player_database import PlayerDatabase
 from match_database import MatchDatabase
 
-db = Database("bolt://localhost:7687", "neo4j", "password")
+db = Database("neo4j+s://xyz.databases.neo4j.io", "neo4j", "xyz")
 
 player_db = PlayerDatabase(db)
 match_db = MatchDatabase(db)
@@ -23,7 +23,7 @@ match_info = match_db.get_match("match_1")
 print("\nInformações da Partida:")
 print(match_info)
 
-history = match_db.get_player_history("1")
+history = player_db.get_match_history("1")
 print("\nHistórico de partidas de João:")
 for match in history:
     print(match)

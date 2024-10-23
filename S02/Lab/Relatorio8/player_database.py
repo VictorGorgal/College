@@ -3,7 +3,7 @@ class PlayerDatabase:
         self.db = database
 
     def create_player(self, player_id, name):
-        query = "CREATE (p:Player {id: $player_id})"
+        query = "CREATE (p:Player {id: $player_id, name: $name})"
         self.db.execute_query(query, {"player_id": player_id, "name": name})
 
     def update_player(self, player_id, name):
