@@ -27,6 +27,13 @@ Depois, navegue até a pasta da tarefa:
 cd ./College/S06/Lab/Aula4
 ```
 
+## Dependências
+
+```bash
+npm install cypress --save-dev
+npm install cypress-mochawesome-reporter --save-dev
+```
+
 ## Executando os Testes
 
 Para rodar os testes com o Cypress:
@@ -41,12 +48,4 @@ Após rodar os testes, você pode visualizar o relatório:
 
 1. Vá até a pasta `./cypress/reports`.
 2. Abra o arquivo `index.html` em seu navegador para visualizar o relatório detalhado dos testes.
-
-## Dependências
-
-- [Node.js](https://nodejs.org/) (para o uso do npm)
-- [Cypress](https://www.cypress.io/)
-- [Mochawesome](https://www.npmjs.com/package/mochawesome) para a geração dos relatórios
-
-> **Nota**: Para instalar todas as dependências, basta rodar `npm install` na pasta do projeto.
 
