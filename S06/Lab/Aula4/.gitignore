@@ -1,0 +1,42 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Build output
+dist/
+build/
+
+# Cypress folders
+cypress/videos/
+cypress/screenshots/
+cypress/reports/
+cypress/fixtures/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# NPM packages
+package-lock.json
+yarn.lock
+
+# Temporary files
+tmp/
+temp/
