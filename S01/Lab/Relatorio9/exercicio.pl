@@ -1,19 +1,13 @@
-% Respostas:
-% resultado(joao, X).
-% falta(X, Y), Y > 0.
-% reprovado(jose).
-
-% Fatos
-resultado(joao, 8).
-resultado(maria, 7).
-resultado(pedro, 5).
-resultado(jose, 6).
-resultado(ana, 9).
+resultado(joao, 3).
+resultado(maria, 1).
+resultado(ana, 4).
+resultado(pedro, 4).
+resultado(jose, 5).
 falta(joao, 2).
 falta(maria, 0).
-falta(pedro, 5).
-falta(jose, 1).
-falta(ana, 0).
+falta(ana, 1).
+falta(pedro, 2).
+falta(jose, 5).
 
 reprovado(X) :- 
     resultado(X, Nota), 
