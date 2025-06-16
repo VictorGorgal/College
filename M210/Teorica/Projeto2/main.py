@@ -42,6 +42,7 @@ class SimplexSolver:
 
             coluna_pivo = ultima_linha.index(min(ultima_linha))
             razoes = []
+
             for i in range(self.num_restricoes):
                 if self.tabela[i][coluna_pivo] > 0:
                     razoes.append(self.tabela[i][-1] / self.tabela[i][coluna_pivo])
@@ -84,38 +85,105 @@ class SimplexSolver:
         return False, 0, []
 
 
-if __name__ == "__main__":
-    # Exemplo:
-    # Max z = 80x1 + 70x2 + 100x3 + 16x4
-    # s.a.
-    #    x1 +  x2 +  x3 + 4x4 <= 250
-    #          x2 +  x3 + 2x4 <= 600
-    #   3x1 + 2x2 + 4x3       <= 500
+def ler_float_lista(prompt, tamanho_esperado):
+    while True:
+        try:
+            valores = list(map(float, input(prompt).split()))
+            if len(valores) != tamanho_esperado:
+                raise ValueError(f"Insira {tamanho_esperado} valores.")
+            return valores
+        except ValueError as e:
+            print(f"Erro: {e}. Tente novamente.")
 
-    c = [80, 70, 100, 16]
-    A = [
-        [1, 1, 1, 4],
-        [0, 1, 1, 2],
-        [3, 2, 4, 0],
-    ]
-    b = [250, 600, 500]
+
+def main():
+    print("RESOLUÇÃO DE PPL COM MÉTODO SIMPLEX (MAXIMIZAÇÃO)")
+    print("-" * 50)
+
+    num_variaveis = int(input("Insira o número de variáveis de decisão: "))
+    num_restricoes = int(input("Insira o número de restrições: "))
+
+    print("\nDigite os coeficientes da função objetivo separados por espaço:")
+    c = ler_float_lista("Ex: 80 70 100 16\n", num_variaveis)
+
+    A = []
+    b = []
+    print("\nAgora insira as restrições no formato:")
+    print("   a1 a2 a3 ... an | b (com coeficientes separados por espaço)")
+
+    for i in range(num_restricoes):
+        print(f"  Restrição {i + 1}:")
+        linha = ler_float_lista("    Coeficientes da restrição: ", num_variaveis)
+        bi = float(input("    Termo independente (lado direito): "))
+        A.append(linha)
+        b.append(bi)
 
     solver = SimplexSolver(c, A, b)
     solver.resolver()
 
-    sol, z = solver.get_solucao()
-    print("Solução ótima:", sol)
-    print("Valor ótimo:", z)
-    print("Preços sombra:", solver.get_precos_sombra())
+    solucao, valor_otimo = solver.get_solucao()
 
-    # dx5 = -25
-    # dx6 = -60
-    # dx7 = -50
-    delta_b = [-25, -60, -50]
-    viavel, novo_z, shadow_prices = solver.analisar_variacao(delta_b)
-    print("Alterações viáveis?", viavel)
-    if viavel:
-        print("Novo lucro ótimo:", novo_z)
-        print("Preços-sombra válidos:", shadow_prices)
-    else:
-        print("Alterações tornam a solução inviável.")
+    print("\nSolução ótima encontrada:")
+    for i, val in enumerate(solucao):
+        print(f"  x{i + 1} = {val:.4f}")
+    print(f"  Lucro ótimo (Z) = {valor_otimo:.4f}")
+    print("\nPreços-sombra:")
+    for i, ps in enumerate(solver.get_precos_sombra()):
+        print(f"  Restrição {i + 1}: {ps:.4f}")
+
+    print("\nAnálise de variação:")
+    print("  Deseja testar alterações no lado direito das restrições (Δb)?")
+    opcao = input("  (S para sim, qualquer outra tecla para sair): ").strip().upper()
+
+    if opcao == "S":
+        delta_b = ler_float_lista("  Insira Δb para cada restrição: ", num_restricoes)
+        viavel, novo_z, precos_sombra = solver.analisar_variacao(delta_b)
+
+        if viavel:
+            print("\nAlterações viáveis.")
+            print(f"  Novo lucro ótimo estimado: {novo_z:.4f}")
+            print("  Preços-sombra continuam válidos.")
+        else:
+            print("\nA nova base não é viável com essas alterações.")
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+# if __name__ == "__main__":
+#     # Exemplo:
+#     # Max z = 80x1 + 70x2 + 100x3 + 16x4
+#     # s.a.
+#     #    x1 +  x2 +  x3 + 4x4 <= 250
+#     #          x2 +  x3 + 2x4 <= 600
+#     #   3x1 + 2x2 + 4x3       <= 500
+#
+#     c = [80, 70, 100, 16]
+#     A = [
+#         [1, 1, 1, 4],
+#         [0, 1, 1, 2],
+#         [3, 2, 4, 0],
+#     ]
+#     b = [250, 600, 500]
+#
+#     solver = SimplexSolver(c, A, b)
+#     solver.resolver()
+#
+#     sol, z = solver.get_solucao()
+#     print("Solução ótima:", sol)
+#     print("Valor ótimo:", z)
+#     print("Preços sombra:", solver.get_precos_sombra())
+#
+#     # dx5 = -25
+#     # dx6 = -60
+#     # dx7 = -50
+#     delta_b = [-25, -60, -50]
+#     viavel, novo_z, shadow_prices = solver.analisar_variacao(delta_b)
+#     print("Alterações viáveis?", viavel)
+#     if viavel:
+#         print("Novo lucro ótimo:", novo_z)
+#         print("Preços-sombra válidos:", shadow_prices)
+#     else:
+#         print("Alterações tornam a solução inviável.")
