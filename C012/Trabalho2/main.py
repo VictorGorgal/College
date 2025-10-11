@@ -21,11 +21,10 @@ class PrintJob:
 def printer_without_control(printer_id, jobs):
     for job in jobs:
         time.sleep(random.uniform(0.05, 0.15))
-        entry = f"Printer {printer_id} finished {job}"
+        entry = f"Printer {printer_id} finished {job}\n"
         for ch in entry:
             print_log.append(ch)
             time.sleep(0.001)
-        print_log.append("\n")
 
 
 def printer_with_control(printer_id, job_queue: Queue):
@@ -37,7 +36,9 @@ def printer_with_control(printer_id, job_queue: Queue):
         time.sleep(job.pages * 0.05)
         with log_lock:
             entry = f"Printer {printer_id} finished {job}\n"
-            print_log.append(entry)
+            for ch in entry:
+                print_log.append(ch)
+                time.sleep(0.001)
         job_queue.task_done()
 
 
