@@ -9,7 +9,7 @@ import random
 if __name__ == "__main__":
     random.shuffle(phrases)
     processes = [
-        Process(i, phrases[i], priority=i % 3 + 1, charsPerSecond=20)
+        Process(i, phrases[i], priority=i % 3 + 1, charsPerSecond=15)
         for i in range(6)
     ]
 

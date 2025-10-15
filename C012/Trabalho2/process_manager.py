@@ -14,6 +14,8 @@ class ProcessManager:
         self.use_semaphore = use_semaphore
         self.semaphore = threading.Semaphore(1) if use_semaphore else None
         self.workers = workers
+        self.total_wait_time = 0
+        self.initial_processes_count = len(processes)
 
     def get_next_job(self):
         if not self.job_queue:
@@ -21,7 +23,7 @@ class ProcessManager:
         return self.algorithm.get_next_job(self.job_queue)
 
     def run(self):
-        display = DisplayThread(self.buffer, len(self.processes), self.worker_status, self.worker_history)
+        display = DisplayThread(self.buffer, self.initial_processes_count, self.worker_status, self.worker_history)
         display.start()
 
         self._configureWorkers()
@@ -33,6 +35,7 @@ class ProcessManager:
         for t in threads:
             t.join()
 
+        display.set_total_wait_time(self.total_wait_time)
         display.stop()
 
     def _configureWorkers(self):

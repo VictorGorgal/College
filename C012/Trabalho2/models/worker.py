@@ -26,16 +26,19 @@ class Worker(threading.Thread):
 
             self.current_job = job
             if self.semaphore:
+                wait_start = time.time()
                 self.manager.worker_status[self.wid] = "Waiting semaphore..."
                 with self.semaphore:
-                    self._execute(job)
+                    wait_end = time.time()
+                    self._execute(job, wait_end - wait_start)
             else:
-                self._execute(job)
+                self._execute(job, 0)
 
             self.current_job = None
 
-    def _execute(self, job):
+    def _execute(self, job, wait_time):
         self.manager.worker_status[self.wid] = f"printing \"{job}\""
         job.execute(self.manager.buffer)
         self.manager.worker_status[self.wid] = "idle"
-        self.manager.worker_history[self.wid].append(f'Prioridade: {job.priority}, Texto: \"{job}\"')
+        self.manager.worker_history[self.wid].append(f'Espera: {wait_time:.3f}s, Prioridade: {job.priority}, Texto: \"{job}\"')
+        self.manager.total_wait_time += wait_time
