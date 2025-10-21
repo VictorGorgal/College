@@ -1,4 +1,5 @@
 import threading
+import time
 
 from utils.display_thread import DisplayThread
 
@@ -16,6 +17,7 @@ class ProcessManager:
         self.workers = workers
         self.total_wait_time = 0
         self.initial_processes_count = len(processes)
+        self.start_time = None
 
     def get_next_job(self):
         if not self.job_queue:
@@ -26,7 +28,8 @@ class ProcessManager:
         display = DisplayThread(self.buffer, self.initial_processes_count, self.worker_status, self.worker_history)
         display.start()
 
-        self._configureWorkers()
+        self._configure_workers()
+        self.start_time = time.time()
 
         threads = []
         for worker in self.workers:
@@ -38,7 +41,7 @@ class ProcessManager:
         display.set_total_wait_time(self.total_wait_time)
         display.stop()
 
-    def _configureWorkers(self):
+    def _configure_workers(self):
         for worker in self.workers:
             worker.manager = self
             worker.semaphore = self.semaphore

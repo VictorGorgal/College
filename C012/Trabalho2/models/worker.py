@@ -13,12 +13,15 @@ class Worker(threading.Thread):
 
     def run(self):
         while True:
-            # Simula tempo para inicializar processo
-            time.sleep(random.uniform(0, 0.2))
-
             job = self.manager.get_next_job()
             if not job:
                 break
+
+            # Calcula o tempo que o processo demorou para ser executado
+            wait_time = time.time() - self.manager.start_time
+
+            # Simula tempo para inicializar processo
+            time.sleep(random.uniform(0, 0.2))
 
             # Simula processamento que nao depende do recurso critico
             self.manager.worker_status[self.wid] = "Processing data..."
@@ -30,9 +33,10 @@ class Worker(threading.Thread):
                 self.manager.worker_status[self.wid] = "Waiting semaphore..."
                 with self.semaphore:
                     wait_end = time.time()
-                    self._execute(job, wait_end - wait_start)
+                    semaphore_wait_time = wait_end - wait_start
+                    self._execute(job, wait_time + semaphore_wait_time)
             else:
-                self._execute(job, 0)
+                self._execute(job, wait_time)
 
             self.current_job = None
 
